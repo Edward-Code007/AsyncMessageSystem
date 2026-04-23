@@ -1,9 +1,14 @@
+using System.Net;
 using AsyncMessageSystem.Order.Model;
 using Microsoft.EntityFrameworkCore;
 
 public class AppDbContext : DbContext
 {
     public DbSet<OrderModel> Order { get; set; }
+    public AppDbContext(DbContextOptions<AppDbContext> opt): base(opt)
+    {
+        
+    }
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         base.OnModelCreating(modelBuilder);
@@ -13,6 +18,8 @@ public class AppDbContext : DbContext
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
     {
         base.OnConfiguring(optionsBuilder);
+        if (!optionsBuilder.IsConfigured)
+        {
         optionsBuilder
         .UseNpgsql(@"Host=localhost:5432;Username=admin;Password=admin;Database=default_db")
         .UseSeeding((ctx, flag) =>
@@ -32,7 +39,8 @@ public class AppDbContext : DbContext
                new OrderModel(Guid.CreateVersion7(),"Moise","FrutaBomba",15),
             ]);
             await ctx.SaveChangesAsync();
-        });
+        }); 
+        }
 
         
     }

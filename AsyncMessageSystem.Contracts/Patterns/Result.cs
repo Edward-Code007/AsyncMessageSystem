@@ -1,8 +1,9 @@
 namespace AsyncMessageSystem.ResultPattern;
+
 public class Result<T> where T : class
 {
-    public T? Value{get;set;}
-    public Error? Error{get;set;}
+    public T? Value { get; set; }
+    public Error? Error { get; set; }
     public bool isAnyError = false;
     private Result(T value)
     {
@@ -24,6 +25,6 @@ public class Result<T> where T : class
 
 public class Error(string description)
 {
-    public string Description{get;set;} = description;
+    public string Description { get; set; } = description;
 
 }

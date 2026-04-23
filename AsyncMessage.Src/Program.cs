@@ -51,34 +51,34 @@ orders.MapPost("/", async (
     ) =>
 {
 
-    var result = await orderRepository.AddOrder(request,cancellationToken);
-    
+    var result = await orderRepository.AddOrder(request, cancellationToken);
+
     if (!result.isAnyError)
     {
-    await publishEndpoint.Publish(new OrderSubmitted
-    {
-        OrderId = Guid.Parse(result.Value!.id),
-        CustomerName = result.Value!.customerName,
-        ProductName = result.Value.productName,
-        Quantity = result.Value.quantity,
-        SubmittedAt = DateTime.UtcNow
-    });
+        await publishEndpoint.Publish(new OrderSubmitted
+        {
+            OrderId = Guid.Parse(result.Value!.id),
+            CustomerName = result.Value!.customerName,
+            ProductName = result.Value.productName,
+            Quantity = result.Value.quantity,
+            SubmittedAt = DateTime.UtcNow
+        });
 
-    logger.LogInformation("Order {OrderId} submitted by {Customer}", result.Value.id, result.Value.customerName);
+        logger.LogInformation("Order {OrderId} submitted by {Customer}", result.Value.id, result.Value.customerName);
 
-    return Results.Accepted($"/api/orders/{result.Value.id}", new { result.Value.id, result.Value.status });
-        
+        return Results.Accepted($"/api/orders/{result.Value.id}", new { result.Value.id, result.Value.status });
+
     }
     return Results.Problem(result!.Error!.Description);
 });
 
-orders.MapGet("/{id:guid}", async (string id, IOrderRepository orderRepository,CancellationToken cancellationToken) =>
+orders.MapGet("/{id:guid}", async (string id, IOrderRepository orderRepository, CancellationToken cancellationToken) =>
 {
-    var orderResult = await orderRepository.GetOrderById(id,cancellationToken);
+    var orderResult = await orderRepository.GetOrderById(id, cancellationToken);
     return orderResult;
 });
 
-orders.MapGet("/", async (IOrderRepository orderRepository,CancellationToken cancellationToken) =>
+orders.MapGet("/", async (IOrderRepository orderRepository, CancellationToken cancellationToken) =>
 {
     var result = await orderRepository.GetAll(cancellationToken);
     return result;

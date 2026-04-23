@@ -8,7 +8,7 @@ public enum OrderStatus
     Failed
 }
 
-public class OrderModel(Guid id,string customerName,string productName,int quantity)
+public class OrderModel(Guid id, string customerName, string productName, int quantity)
 {
     public Guid Id { get; set; } = id;
     public string CustomerName { get; set; } = customerName;

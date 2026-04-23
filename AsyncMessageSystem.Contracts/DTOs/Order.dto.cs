@@ -11,4 +11,4 @@ public record CreateOrderRequest
     [Range(1, 20)]
     public int Quantity { get; init; }
 }
-public record OrderDto(string id,string customerName,string productName,int quantity,string status){}
+public record OrderDto(string id, string customerName, string productName, int quantity, string status) { }

@@ -5,9 +5,9 @@ using Microsoft.EntityFrameworkCore;
 public class AppDbContext : DbContext
 {
     public DbSet<OrderModel> Order { get; set; }
-    public AppDbContext(DbContextOptions<AppDbContext> opt): base(opt)
+    public AppDbContext(DbContextOptions<AppDbContext> opt) : base(opt)
     {
-        
+
     }
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
@@ -20,28 +20,28 @@ public class AppDbContext : DbContext
         base.OnConfiguring(optionsBuilder);
         if (!optionsBuilder.IsConfigured)
         {
-        optionsBuilder
-        .UseNpgsql(@"Host=localhost:5432;Username=admin;Password=admin;Database=default_db")
-        .UseSeeding((ctx, flag) =>
-        {
-            ctx.Set<OrderModel>().AddRange([
-               new OrderModel(Guid.CreateVersion7(),"Ruso","Guayaba",10),
+            optionsBuilder
+            .UseNpgsql(@"Host=localhost:5432;Username=admin;Password=admin;Database=default_db")
+            .UseSeeding((ctx, flag) =>
+            {
+                ctx.Set<OrderModel>().AddRange([
+                   new OrderModel(Guid.CreateVersion7(),"Ruso","Guayaba",10),
                new OrderModel(Guid.CreateVersion7(),"Felix","Pepinos",10),
                new OrderModel(Guid.CreateVersion7(),"Felix","FrutaBomba",15),
-            ]);
-            ctx.SaveChanges();
-        }).UseAsyncSeeding(async (ctx, flag, cancellationToken) =>
-        {
-            //ctx.Database.EnsureCreated();
-            ctx.Set<OrderModel>().AddRange([
-               new OrderModel(Guid.CreateVersion7(),"Ruso","Guayaba",10),
+                ]);
+                ctx.SaveChanges();
+            }).UseAsyncSeeding(async (ctx, flag, cancellationToken) =>
+            {
+                //ctx.Database.EnsureCreated();
+                ctx.Set<OrderModel>().AddRange([
+                   new OrderModel(Guid.CreateVersion7(),"Ruso","Guayaba",10),
                new OrderModel(Guid.CreateVersion7(),"Felix","Pepinos",10),
                new OrderModel(Guid.CreateVersion7(),"Moise","FrutaBomba",15),
-            ]);
-            await ctx.SaveChangesAsync();
-        }); 
+                ]);
+                await ctx.SaveChangesAsync();
+            });
         }
 
-        
+
     }
 }

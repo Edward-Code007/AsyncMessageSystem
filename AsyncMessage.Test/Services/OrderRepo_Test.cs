@@ -50,11 +50,11 @@ public class OrderRepo_Test
         _dbMock.SaveChanges();
         //Act
         CancellationToken cancellationToken = this._cancellationTokenSource.Token;
-        var result = await _orderRepo.GetOrderById(id.ToString(),cancellationToken);
+        var result = await _orderRepo.GetOrderById(id.ToString(), cancellationToken);
         //Assert
         Assert.IsType<Result<OrderDto>>(result);
         Assert.False(result.isAnyError);
-        Assert.Equal(id.ToString(),result.Value!.id);
+        Assert.Equal(id.ToString(), result.Value!.id);
     }
 
     [Fact]
@@ -67,9 +67,9 @@ public class OrderRepo_Test
             ProductName = "Zapato",
             Quantity = 1
         };
-        CancellationToken cancellationToken =this._cancellationTokenSource.Token;
+        CancellationToken cancellationToken = this._cancellationTokenSource.Token;
         //Act
-       var result = await this._orderRepo.AddOrder(newOrder,cancellationToken);
+        var result = await this._orderRepo.AddOrder(newOrder, cancellationToken);
         //Assert
         Assert.IsType<Result<OrderDto>>(result);
         Assert.False(result.isAnyError);

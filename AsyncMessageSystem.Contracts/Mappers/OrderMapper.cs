@@ -7,23 +7,23 @@ public static class OrderMappers
 {
     extension(OrderModel orderModel)
     {
-    public OrderDto fromModelToDto()
-    {
-        string idOrder = orderModel.Id.ToString("");
-        OrderDto orderDto = new OrderDto(
-            idOrder,
-            orderModel.CustomerName,
-            orderModel.ProductName,
-            orderModel.Quantity,
-            orderModel.Status.ToString()
-            );
-        return orderDto;
-    }
+        public OrderDto fromModelToDto()
+        {
+            string idOrder = orderModel.Id.ToString("");
+            OrderDto orderDto = new OrderDto(
+                idOrder,
+                orderModel.CustomerName,
+                orderModel.ProductName,
+                orderModel.Quantity,
+                orderModel.Status.ToString()
+                );
+            return orderDto;
+        }
     }
     extension(OrderDto)
     {
-        
+
     }
 
-    
+
 }

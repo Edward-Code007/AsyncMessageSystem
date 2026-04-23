@@ -1,0 +1,27 @@
+@host = http://localhost:5158
+
+### Create Order
+POST {{host}}/api/orders
+Content-Type: application/json
+
+{
+  "customerName": "Juan Pérez",
+  "productName": "Laptop Dell XPS 15",
+  "quantity": 2
+}
+
+### Create Another Order
+POST {{host}}/api/orders
+Content-Type: application/json
+
+{
+  "customerName": "María García",
+  "productName": "Monitor LG 27''",
+  "quantity": 1
+}
+
+### Get Order by ID (replace with actual ID from POST response)
+GET {{host}}/api/orders/00000000-0000-0000-0000-000000000000
+
+### Get All Orders
+GET {{host}}/api/orders

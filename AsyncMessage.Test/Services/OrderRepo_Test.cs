@@ -76,6 +76,7 @@ public class OrderRepo_Test
         Assert.Equal("Eduardo", result.Value!.customerName);
         //Cleaning
         this._dbMock.Remove(result);
+         await this._dbMock.SaveChangesAsync(cancellationToken);
 
     }
 }

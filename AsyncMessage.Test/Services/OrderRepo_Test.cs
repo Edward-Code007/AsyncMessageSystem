@@ -14,7 +14,7 @@ public class OrderRepo_Test
     public OrderRepo_Test()
     {
         var options = new DbContextOptionsBuilder<AppDbContext>()
-                    .UseInMemoryDatabase("db_test").Options;
+                    .UseInMemoryDatabase(Guid.CreateVersion7().ToString()).Options;
 
         this._dbMock = new AppDbContext(options);
         this._orderRepo = new OrderRepositoryPql(_dbMock);
@@ -74,9 +74,7 @@ public class OrderRepo_Test
         Assert.IsType<Result<OrderDto>>(result);
         Assert.False(result.isAnyError);
         Assert.Equal("Eduardo", result.Value!.customerName);
-        //Cleaning
-        this._dbMock.Remove(result);
-         await this._dbMock.SaveChangesAsync(cancellationToken);
+
 
     }
 }

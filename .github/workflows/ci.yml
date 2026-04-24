@@ -4,15 +4,18 @@ on:
         branches:
             - main
 jobs:
-    Test:
+    Unit_Test:
         runs-on: ubuntu-latest
         steps:
-        - uses: actions/checkout@v6
+        - name: CheckOut Repo
+          uses: actions/checkout@v6
         - name: Setup dotnet
           uses: actions/setup-dotnet@v5
           with:
             dotnet-version: 10.0.x
-        - run: dotnet test --project ./AsyncMessage.Test/AsyncMessage.test.csproj
+        - name: Run_Test
+          run: dotnet test --project ./AsyncMessage.Test/AsyncMessage.test.csproj
+
 
         
                 

@@ -74,5 +74,8 @@ public class OrderRepo_Test
         Assert.IsType<Result<OrderDto>>(result);
         Assert.False(result.isAnyError);
         Assert.Equal("Eduardo", result.Value!.customerName);
+        //Cleaning
+        this._dbMock.Remove(result);
+
     }
 }

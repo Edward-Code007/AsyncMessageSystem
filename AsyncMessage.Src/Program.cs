@@ -9,7 +9,7 @@ var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddOpenApi();
 
-builder.Services.AddScoped<IOrderRepository, OrderRepositoryPql>();
+builder.Services.AddScoped<IOrderRepository, OrderRep>();
 
 builder.Services.AddMassTransit(x =>
 {
@@ -44,14 +44,14 @@ var orders = app.MapGroup("api/orders");
 
 orders.MapPost("/", async (
     CreateOrderRequest request,
-    IOrderRepository orderRepository,
+    IOrderService orderService,
     IPublishEndpoint publishEndpoint,
     ILogger<Program> logger,
     CancellationToken cancellationToken
     ) =>
 {
 
-    var result = await orderRepository.AddOrder(request, cancellationToken);
+    var result = await orderService.InsertOrder(request, cancellationToken);
 
     if (!result.isAnyError)
     {
@@ -72,15 +72,15 @@ orders.MapPost("/", async (
     return Results.Problem(result!.Error!.Description);
 });
 
-orders.MapGet("/{id:guid}", async (string id, IOrderRepository orderRepository, CancellationToken cancellationToken) =>
+orders.MapGet("/{id:guid}", async (string id, IOrderService orderService, CancellationToken cancellationToken) =>
 {
-    var orderResult = await orderRepository.GetOrderById(id, cancellationToken);
+    var orderResult = await orderService.GetOrderById(id, cancellationToken);
     return orderResult;
 });
 
-orders.MapGet("/", async (IOrderRepository orderRepository, CancellationToken cancellationToken) =>
+orders.MapGet("/", async (IOrderService orderService, CancellationToken cancellationToken) =>
 {
-    var result = await orderRepository.GetAll(cancellationToken);
+    var result = await orderService.GetAllOrders(cancellationToken);
     return result;
 });
 

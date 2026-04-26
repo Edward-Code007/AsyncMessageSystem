@@ -20,7 +20,8 @@ public class Result<T> where T : class
     public static Result<T> Success(T value) => new Result<T>(value);
     public static Result<T> Failed(string description) => new Result<T>(new Error(description));
 
-
+    public static implicit operator Result<T>(T value) => new Result<T>(value);
+    public static implicit operator Result<T>(string errDescription) => new Result<T>(new Error(errDescription));
 }
 
 public class Error(string description)

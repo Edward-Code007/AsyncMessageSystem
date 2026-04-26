@@ -6,7 +6,7 @@ using AsyncMessageSystem.Services;
 namespace AsyncMessageSystem.Consumers;
 
 public class OrderSubmittedConsumer(
-    IOrderRepository orderRepository,
+    IOrderService orderService,
     IPublishEndpoint publishEndpoint,
     ILogger<OrderSubmittedConsumer> logger) : IConsumer<OrderSubmitted>
 {
@@ -18,14 +18,14 @@ public class OrderSubmittedConsumer(
             message.OrderId, message.CustomerName, message.ProductName, message.Quantity);
 
         string orderId = message.OrderId.ToString();
-        await orderRepository.UpdateStatus(orderId, OrderStatus.Processing);
+        await orderService.UpdateStatus(orderId, OrderStatus.Processing);
 
         // Simulate heavy processing (3-5 seconds)
         var processingTime = Random.Shared.Next(3000, 5001);
         await Task.Delay(processingTime, context.CancellationToken);
 
         var processedAt = DateTime.UtcNow;
-        await orderRepository.UpdateStatus(orderId, OrderStatus.Processed, processedAt);
+        await orderService.UpdateStatus(orderId, OrderStatus.Processed, processedAt);
 
         await publishEndpoint.Publish(new OrderProcessed
         {

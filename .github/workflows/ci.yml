@@ -1,10 +1,9 @@
 name: .Net
 on: 
-    push: 
-        branches:
-            - main
+    workflow_dispatch:
+    
 jobs:
-    Unit_Test:
+    Build_and_Test:
         runs-on: ubuntu-latest
         steps:
         - name: CheckOut Repo

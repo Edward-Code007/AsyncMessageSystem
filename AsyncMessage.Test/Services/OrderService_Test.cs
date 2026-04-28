@@ -7,13 +7,13 @@ using Microsoft.EntityFrameworkCore;
 using Moq;
 namespace IOrderRepo.Test;
 
-public class OrderRepo_Test
+public class OrderService_Test
 {
     IOrderService _orderService;
     Mock<IOrderRepository> _orderRepository;
     CancellationTokenSource _cancellationTokenSource;
 
-    public OrderRepo_Test()
+    public OrderService_Test()
     {
 
 

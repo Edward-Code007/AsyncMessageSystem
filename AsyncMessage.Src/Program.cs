@@ -3,13 +3,13 @@ using AsyncMessageSystem.Consumers;
 using AsyncMessageSystem.Order.Dto;
 using AsyncMessageSystem.Messages;
 using AsyncMessageSystem.Services;
-using AsyncMessageSystem.Order.Model;
 
 var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddOpenApi();
 
 builder.Services.AddScoped<IOrderRepository, OrderRep>();
+builder.Services.AddScoped<IOrderService,OrderSerPql>();
 
 builder.Services.AddMassTransit(x =>
 {
@@ -22,8 +22,8 @@ builder.Services.AddMassTransit(x =>
 
         cfg.Host(rabbitConfig["Host"] ?? "localhost", "/", h =>
         {
-            h.Username(rabbitConfig["Username"] ?? "guest");
-            h.Password(rabbitConfig["Password"] ?? "guest");
+            h.Username(rabbitConfig["Username"] );
+            h.Password(rabbitConfig["Password"]);
         });
 
         cfg.ConfigureEndpoints(context);

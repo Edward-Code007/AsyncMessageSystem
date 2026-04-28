@@ -9,7 +9,7 @@ jobs:
     runs-on: ubuntu-latests
     steps:
     - name: Unit_Test
-      uses: ./github/workflows/test
+      uses: ./.github/workflows/test
       with:
         path: ./AsyncMessage.Test/AsyncMessage.test.csproj
   

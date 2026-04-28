@@ -6,9 +6,6 @@ on:
       - cron: '00 00 * * 1-5'
 jobs:
   Test: 
-    runs-on: ubuntu-latests
-    steps:
-    - name: Unit_Test
       uses: ./.github/workflows/test.yml
       with:
         path: ./AsyncMessage.Test/AsyncMessage.test.csproj

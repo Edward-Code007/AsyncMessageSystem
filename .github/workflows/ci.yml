@@ -1,20 +1,19 @@
 name: .Net
-run-name: Deploy by @ ${{github.actor}}
+run-name: Deploy by @ ${{github.actor}} by event ${{github.event_name}}
 on: 
     workflow_dispatch:
-    
+    schedule:
+      - cron: '00 00 * * 1-5'
 jobs:
-    Build_and_Test:
-        runs-on: ubuntu-latest
-        steps:
-        - name: CheckOut Repo
-          uses: actions/checkout@v6
-        - name: Setup dotnet
-          uses: actions/setup-dotnet@v5
-          with:
-            dotnet-version: 10.0.x
-        - name: Run_Test
-          run: dotnet test --project ./AsyncMessage.Test/AsyncMessage.test.csproj
+  Test: 
+    runs-on: ubuntu-latests
+    steps:
+    - name: Unit_Test
+      uses: ./test
+      with:
+        path: ./AsyncMessage.Test/AsyncMessage.test.csproj
+  
+       
 
 
         

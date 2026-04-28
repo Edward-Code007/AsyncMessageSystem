@@ -1,0 +1,21 @@
+name: Test_WorkFlow
+run-name: Test_Workflow
+on:
+    workflow_call: 
+        inputs:
+            path:
+                description: Path to Test Project
+                required: true
+                type: string
+jobs:
+    Build_and_Test:
+        runs-on: ubuntu-latest
+        steps:
+        - name: CheckOut Repo
+          uses: actions/checkout@v6
+        - name: Setup dotnet
+          uses: actions/setup-dotnet@v5
+          with:
+             dotnet-version: 10.0.x
+        - name: Run_Test
+          run: dotnet test --project ${{inputs.path}}

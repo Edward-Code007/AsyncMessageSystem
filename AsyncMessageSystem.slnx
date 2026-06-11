@@ -1,5 +1,4 @@
-<Solution>
-  
+<Solution> 
   <Project Path="AsyncMessage.Src/AsyncMessageSystem.csproj" />
   <Project Path="AsyncMessage.Test/AsyncMessage.test.csproj" />
   <Project Path="AsyncMessageSystem.Contracts/AsyncMessageSystem.Contracts.csproj" />
